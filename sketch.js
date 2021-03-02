@@ -1,9 +1,10 @@
 let colorBg = 51;
+let button;
 
 let lang = 'es-CO';
 let speechRec = new p5.SpeechRec(lang);
-speechRec.continuous = true; // do continuous recognition
-speechRec.interimResults = false; // allow partial recognition (faster, less accurate)
+speechRec.continuous = false; // do continuous recognition
+speechRec.interimResults = true; // allow partial recognition (faster, less accurate)
 speechRec.onResult = showResult; // bind callback function to trigger when speech is recognized
 speechRec.onEnd = onEndResult;
 
@@ -15,8 +16,13 @@ function setup() {
 
   rectMode(CENTER);
   colorCuadrado = color(0, 0, 0, 0);
+  
+  button = createButton('Start MIC');
+  // button.position(width / 2, height / 2);
+  button.center('vertical');
+  button.mousePressed(startMic);
 
-  speechRec.start();
+  // speechRec.start();
 }
 
 function draw() {
@@ -36,7 +42,8 @@ function showResult() {
     console.log(speechRec.resultString);
     // console.log(mostrecentword);
 
-    switch (speechRec.resultString) {
+    // switch (speechRec.resultString) {
+    switch (mostrecentword) {
       case "azul":
         colorCuadrado = color(0, 0, 255);
         break;
@@ -63,5 +70,10 @@ function showResult() {
 
 function onEndResult() {
   console.log("OnEnd"); // log the result
+  // speechRec.start();
+}
+
+function startMic() {
+  console.log("Speech recognition started"); // log when user clicks
   speechRec.start();
 }
