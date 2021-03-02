@@ -1,8 +1,11 @@
 let colorBg = 51;
-let lang = 'es-CO';
-let speechRec;
 
-let aux = false;
+let lang = 'es-CO';
+let speechRec = new p5.SpeechRec(lang);
+speechRec.continuous = true; // do continuous recognition
+speechRec.interimResults = false; // allow partial recognition (faster, less accurate)
+speechRec.onResult = showResult; // bind callback function to trigger when speech is recognized
+speechRec.onEnd = onEndResult;
 
 let colorCuadrado;
 
@@ -10,36 +13,28 @@ function setup() {
 
   createCanvas(200, 200);
 
-  speechRec = new p5.SpeechRec(lang, gotSpeech);
-
-  let continuous = true;
-  let interim = false;
-  speechRec.start(continuous, interim);
-
   rectMode(CENTER);
   colorCuadrado = color(0, 0, 0, 0);
 
+  speechRec.start();
 }
 
 function draw() {
 
   background(colorBg);
 
-
-
   noStroke();
   fill(colorCuadrado);
   rect(width / 2, height / 2, 50, 50);
-
-
-
 }
 
-function gotSpeech() {
+function showResult() {
 
   if (speechRec.resultValue) {
 
+    var mostrecentword = speechRec.resultString.split(' ').pop();
     console.log(speechRec.resultString);
+    // console.log(mostrecentword);
 
     switch (speechRec.resultString) {
       case "azul":
@@ -63,8 +58,10 @@ function gotSpeech() {
       default:
         colorCuadrado = color(0, 0, 0, 0);
     }
-    // if (speechRec.resultString == "amarillo") {
-    //   colorCuadrado = (255, )
-    // }
   }
+}
+
+function onEndResult() {
+  console.log("OnEnd"); // log the result
+  speechRec.start();
 }
