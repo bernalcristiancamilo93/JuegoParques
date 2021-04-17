@@ -1,3 +1,10 @@
+let bluetooth;
+let isConnected = false;
+// let blueToothCcteristic;
+// let receivedValue = "";
+// var millisecondTimerStart;
+// var oldColorPickerValue;
+
 function connectToBle() {
   // Connect to a device by passing the service UUID
   bluetooth.connect(0xFFE0, gotCharacteristics);
@@ -13,6 +20,8 @@ function disconnectToBle() {
 function onDisconnected() {
   console.log('Device got disconnected');
   isConnected = false;
+  
+  audioBluetooth();
 }
 
 // A function that will be called once got characteristics
@@ -26,7 +35,12 @@ function gotCharacteristics(error, characteristics) {
   isConnected = bluetooth.isConnected();
 
   // Add a event handler when the device is disconnected
-  bluetooth.onDisconnected(onDisconnected)
+  bluetooth.onDisconnected(onDisconnected);
+
+  if (isConnected) {
+    audioBluetooth();
+  }
+
 }
 
 function sendData(command) {
