@@ -49,6 +49,7 @@ function onEndResultDesconectado() {
 }
 
 function voiceSettings() {
+  myVoice.setLang(lang);
   myVoice.setVoice(5);
   myVoice.setPitch(1);
 }
