@@ -183,6 +183,11 @@ function draw() {
     text(valorDados[0], width / 2 - 50, height / 2);
     text(valorDados[1], width / 2 + 50, height / 2);
   }
+   textAlign(CENTER, CENTER);
+    textSize(72);
+    fill(0);
+    text(windowWidth, width / 2 - 50, height / 2);
+    text(windowHeight, width / 2 + 50, height / 2);
 }
 
 function lanzamientoDeDados() {
