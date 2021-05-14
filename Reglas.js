@@ -58,8 +58,8 @@ function setup() {
   textAlign(CENTER, CENTER);
   textSize(72);
   fill(0);
-  text(windowWidth, width / 2 - 150, height / 2);
-  text(windowHeight, width / 2 + 150, height / 2);
+  text(windowWidth, width / 2 - 250, height / 2);
+  text(windowHeight, width / 2 + 250, height / 2);
 
   voiceSettings();
   crearElementos();
